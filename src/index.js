@@ -1,11 +1,23 @@
 import React from "react";
-import ReactDOM from "react-dom/client";
-import "./index.scss";
+import { createRoot } from "react-dom/client";
+import "../src/index.scss";
 import App from "./app/App";
+import { Provider } from "react-redux";
+import { createStore } from "@reduxjs/toolkit";
+import reducer from "./services/reducer";
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
+const rootElement = document.getElementById("root");
+const root = createRoot(rootElement);
+
+const store = createStore(
+  reducer,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
+
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+  <Provider store={store}>
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
+  </Provider>
 );
